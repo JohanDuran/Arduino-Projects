@@ -518,4 +518,3 @@ String sendData(String command, const int Goldout, boolean debug)
   return response;
 }
 
-

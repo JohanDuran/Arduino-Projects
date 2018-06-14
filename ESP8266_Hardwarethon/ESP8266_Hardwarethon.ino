@@ -5,8 +5,6 @@
 
 #include <SoftwareSerial.h>
 //para el sensor ultrasonico
-#define trigPin 13
-#define echoPin 12
 SoftwareSerial mySerial(3, 2); //Pines: RX conectado a D3, TX conectado a D2
 
 //
@@ -14,11 +12,13 @@ SoftwareSerial mySerial(3, 2); //Pines: RX conectado a D3, TX conectado a D2
 #define ESP8266_OK //Confirmar si el comando AT fue recibido
 
 
-#define SSID   "AP-12805"
-#define PASS   "nadieselasabe"
+#define SSID   "jaja"
+#define PASS   ""
 
-String server = "AT+CIPSTART=\"TCP\",\"192.168.0.107\",80";  //Direccion del servidor al que se envían los datos
-String JSON = "GET /Proyectos/Web-Projects-Generals/ArduinoPHPPost/phpPost/test.php?a=125&b=26 HTTP/1.1\r\nHost: 192.168.0.107:80\r\n\r\n\r\n\r\n"; //Header post/JSON
+String server = "AT+CIPSTART=\"TCP\",\"ingplantae-johanduran.c9users.io\",80";  //Direccion del servidor al que se envían los datos
+String method = "GET /insertArduino.php?";
+String methodEncender = "GET /encenderMaquina.php HTTP/1.1\r\nHost: ingplantae-johanduran.c9users.io:80\r\n\r\n\r\n\r\n";
+String headers = " HTTP/1.1\r\nHost: ingplantae-johanduran.c9users.io:80\r\n\r\n\r\n\r\n"; //Header post/JSON
 String trama; // Almacena el comando AT que envía el largo del dato a enviarse al servidor
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -26,11 +26,8 @@ void setup() {
 
   Serial.begin(9600);             // Inicializacion del Monitor Serial a 115200
   mySerial.begin(9600);           // Inicializacion  puerto serial virtual
-  Serial.println("Manejo Modulo ESP8266 con Arduino UNO");// Mensaje de inicialización
+  Serial.println("IngPlantae en la nube");// Mensaje de inicialización
 
-  //para el sensor ultrasonico
-  pinMode(trigPin, OUTPUT);//configuración de pines
-  pinMode(echoPin, INPUT);//configuración de pines
   
   //*********************Pruebas iniciales**************************
   Serial.println("AT");
@@ -47,29 +44,24 @@ void setup() {
 }
 
 void loop() {
-  //******************Toma de datos***********************************
-  //int sensorValue = analogRead(A0);
+  enviarDatos(1,1,1,1,1);
+}
 
-  //Serial.println(distance);
-  delay(100);
-  //*****************Conexión con el servidor*************************
-  //String datos = "{\"id1\":\"12\"}";
-  //String temp = JSON;
-  //JSON = JSON + String(datos.length()) + "\r\n\r\n" + datos;
-  Serial.println(JSON);
-  trama = "AT+CIPSEND=" + String(JSON.length());
+
+void enviarDatos(int temperatura_interna, int humedad_relativa, int radiacion, int humedad_sustrato_A, int humedad_sustrato_B){
+  //******************Toma de datos***********************************
+  String tempMethod = method+"temperatura_interna="+temperatura_interna+"&humedad_relativa="+humedad_relativa+"&radiacion="+radiacion+"&humedad_sustrato_A="+humedad_sustrato_A+"&humedad_sustrato_B="+humedad_sustrato_B;
+  String request = tempMethod+headers;
+  Serial.println(tempMethod);
+  trama = "AT+CIPSEND=" + String(request.length());
   Serial.println(trama);
   SendCmd(server, 60);
   mySerial.println(trama);
   delay(100);
-  String views = sendData(JSON, 2000, 2);
-  //mySerial.println(JSON);
-  
-  //JSON = temp;
+  String views = sendData(request, 2000, 2);
   resetESP();
   delay(5000);
 }
-
 
 //****************************************** FUNCIONES****************************************************************//
 
@@ -160,3 +152,29 @@ String sendData(String command, const int Goldout, boolean debug)
 }
 
 
+bool encenderMaquinas()
+{
+  Serial.println(methodEncender);
+  trama = "AT+CIPSEND=" + String(methodEncender.length());
+  Serial.println(trama);
+  SendCmd(server, 60);
+  Serial1.println(trama);
+  delay(100);
+  Serial1.print(methodEncender); // send the read character to the Serial1
+
+  long int Gold = millis();
+
+  while (Serial1.available()>0){
+  }
+
+  if (mySerial.find("encender"))
+  {
+    Serial.println('enceder maquinas-------------------');
+    resetESP();
+    return true;
+  }else{
+    Serial.println('No Se ha encontrado-------------------');
+    resetESP();
+    return false;
+  }
+}

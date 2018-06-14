@@ -1,0 +1,41 @@
+opciones para mqtt
+https://arduino.stackexchange.com/questions/13462/mqtt-client-on-arduino-sim900
+
+https://github.com/carrascoacd/ArduinoSIM800L
+
+
+https://stackoverflow.com/questions/37816759/gsm800-mqtt-library
+
+
+prueba de comandos
+https://www.exploreembedded.com/wiki/Setting_up_GPRS_with_SIM800L
+
+
+
+pagina de biblioteca
+https://blog.risingstack.com/getting-started-with-nodejs-and-mqtt/
+
+
+instalar mosquitto
+http://pdacontrolen.com/installation-mosquitto-broker-mqtt-in/
+
+
+pagina servidor para probar mosquito
+http://test.mosquitto.org/
+
+
+guia rapida para probar el sim800
+http://www.ayomaonline.com/programming/quickstart-sim800-sim800l-with-arduino/
+
+
+
+biblioteca que estoy usando para comunicacion
+https://github.com/elementzonline/SIM800_MQTT/blob/master/GSM_MQTT_Arduino_Publish/GSM_MQTT_Arduino_Publish.ino
+
+
+rest api
+https://github.com/carrascoacd/ArduinoSIM800L
+
+
+Biblioteca funcional MQTT SIM HTTP
+https://github.com/vshymanskyy/TinyGSM/blob/master/examples/HttpClient/HttpClient.ino
