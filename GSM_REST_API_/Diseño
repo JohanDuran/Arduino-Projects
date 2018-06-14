@@ -1,0 +1,34 @@
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+//							Historias de usuario iniciales							 //
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+
+* Cada módulo tiene múltiples salidas de activación.
+* Cada salida tiene uno o más timer asociados.
+* La persona puede activar o desactivar el timer desde la aplicación.
+* La persona puede observar el estado de todos los timer que tiene.
+---------------------------------------------------------------------------------------
+* Cada modulo debe tener un ID único, se puede pegar en su exterior.
+* Cada módulo finalizado debe registrarse en la base de datos.
+* En la base de datos se deben tener todos los datos asociados al módulo pe: cantidad de salidas.
+---------------------------------------------------------------------------------------
+* Cuando ingrese un nuevo cliente que desee obtener un módulo se le crea un usuario.
+* Los módulos deben estar asociados al usuario creado en el punto anterior.
+* Cuando un usuario obtiene un módulo el mismo pasa a estado "comprado".
+---------------------------------------------------------------------------------------
+* Cuando la persona entra al sistema se debe loguear.
+* Una vez logueado aparecen todos los módulos que tiene asociados.
+* El registro de los módulos es manual por el hecho de que la conexión a internet del mismo es manual.
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+//							Consistencia de datos                                    //
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+* Un módulo se encuentra en estado inactivo hasta que una persona lo compre.
+* El módulo pregunta cada cierto tiempo si hay cambios.
+* Un módulo tiene n salidas, cada salida tiene máximo 3 alarmas.
+* Cada salida tiene un estado, encendida o apagada.
+* El usuario nunca crea alarmas, solamente las modifica.
+* El usuario modifica una alarma para una salida específica. 					      //dibujo representativo con patillas del relay, rojo verde para indicar on\off y clic para entrar y modificar.
+* Al modificar queda en estado inconsistente hasta que el módulo lea ese valor.      //acá por ejemplo: default 0, se modifica 1, la verifica el módulo 2.
